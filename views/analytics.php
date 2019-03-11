@@ -5,3 +5,6 @@
 <?php if (isset($classes)) {?>
   <p style="text-align:center;"><?=$classes?> Class<?=($classes == 0 || $classes > 1) ? "es" : ""?>.</p>
 <?php }?>
+<?php if (isset($functions)) {?>
+  <p style="text-align:center;"><?=$functions?> Function<?=($functions == 0 || $functions > 1) ? "s" : ""?>.</p>
+<?php }?>
