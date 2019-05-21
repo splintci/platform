@@ -162,5 +162,13 @@ class SplintAppController {
 
 		log_message('info', 'SplintAppController Class Initialized');
 	}
-
+	/**
+	 * [bind description]
+	 * @return [type] [description]
+	 */
+	protected function bind() {
+		foreach (func_get_args() as $class)	{
+			$this->{$class} =& $this->app->{$class};
+		}
+	}
 }
