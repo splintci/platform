@@ -93,6 +93,8 @@ class SplintAppController {
 
 		$this->load =& load_class('Loader', 'core');
 
+		$this->config->set_item("splint", $splint);
+
 		// Autoload Files.
 		if (file_exists(APPPATH."splints/$splint/config/autoload.php")) {
 			include(APPPATH."splints/$splint/config/autoload.php");
