@@ -177,6 +177,25 @@ class SplintAppController {
 		$this->load->view("../splints/$this->splint/views/$view", $data, $return);
 	}
 	/**
+	 * [library description]
+	 * @param  [type] $library [description]
+	 * @param  [type] $params  [description]
+	 * @param  [type] $alias   [description]
+	 * @return [type]          [description]
+	 */
+	protected function library($library, $params=null, $alias=null) {
+		$this->load->view("../splints/$this->splint/libraries/$library", $params, $alias);
+	}
+	/**
+	 * [model description]
+	 * @param  [type] $model [description]
+	 * @param  [type] $alias [description]
+	 * @return [type]        [description]
+	 */
+	protected function model($model, $alias=null) {
+		$this->load->view("../splints/$this->splint/models/$model", $alias);
+	}
+	/**
 	 * [bind description]
 	 * @return [type] [description]
 	 */
