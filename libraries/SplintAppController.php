@@ -112,6 +112,9 @@ class SplintAppController {
 				foreach ($autoload['helper'] as $val)	{
 					$this->load->splint($splint, "%$val");
 				}
+				if (!in_array("url", $autoload["helper"])) $this->load->helper("url");
+			} else {
+				$this->load->helper("url");
 			}
 			// Load Libraries
 			if (isset($autoload['libraries']) && count($autoload['libraries']) > 0)	{
@@ -160,7 +163,11 @@ class SplintAppController {
 	        $this->load->package($splint);
 	      }
 	    }
+		} else {
+			$this->load->helper("url");
 		}
+
+		$this->load->splint("splint/platform", "%platform");
 
 		if (method_exists($this, "Initialize")) $this->Initialize();
 
@@ -174,6 +181,8 @@ class SplintAppController {
 	 * @return [type]          [description]
 	 */
 	protected function view($view, $data=null, $return=false) {
+		if ($data == null) $data = array();
+		$data["splint"] = $this->splint;
 		$this->load->view("../splints/$this->splint/views/$view", $data, $return);
 	}
 	/**
