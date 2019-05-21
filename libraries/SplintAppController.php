@@ -61,6 +61,8 @@ class SplintAppController {
 
 	protected $params;
 
+	protected $splint;
+
 	/**
 	 * Reference to the CI singleton
 	 *
@@ -76,6 +78,8 @@ class SplintAppController {
 	public function __construct($splint, $params=null)	{
 
 		$this->app =& get_instance();
+
+		$this->splint = $splint;
 
 		if ($params != null) $this->params = $params;
 
@@ -161,6 +165,16 @@ class SplintAppController {
 		if (method_exists($this, "Initialize")) $this->Initialize();
 
 		log_message('info', 'SplintAppController Class Initialized');
+	}
+	/**
+	 * [view description]
+	 * @param  [type]  $view   [description]
+	 * @param  [type]  $data   [description]
+	 * @param  boolean $return [description]
+	 * @return [type]          [description]
+	 */
+	protected function view($view, $data=null, $return=false) {
+		$this->load->view("../splints/$this->splint/views/$view", $data, $return);
 	}
 	/**
 	 * [bind description]
