@@ -107,7 +107,7 @@ class SplintAppController {
 
 		// Load Platform Helper.
 		$this->load->splint("splint/platform", "%platform");
-		
+
     if (isset($autoload)) {
 			// Load any custom config file
 			if (isset($autoload['config']) && count($autoload['config']) > 0)	{
@@ -175,7 +175,7 @@ class SplintAppController {
 			$this->load->helper("url");
 		}
 
-		if (method_exists($this, "Initialize")) $this->Initialize();
+		if (method_exists($this, "initialize")) $this->initialize();
 
 		log_message('info', 'SplintAppController Class Initialized');
 	}
@@ -259,8 +259,8 @@ class SplintAppController {
 	 * [get_parent_uri description]
 	 * @return [type] [description]
 	 */
-	protected function get_parent_uri() {
-		return $this->uri->segment(1) . "/" . $this->uri->segment(2) . "/";
+	protected function parent_uri($uri=null) {
+		return $this->uri->segment(1) . "/" . $this->uri->segment(2) . "/" . ($uri == null ? "" : $uri);
 	}
 	/**
 	 * [get_instance description]
