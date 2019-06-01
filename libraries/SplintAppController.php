@@ -57,7 +57,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
 class SplintAppController {
 
-	protected $app;
+	protected $ci;
 
 	protected $params;
 
@@ -79,7 +79,7 @@ class SplintAppController {
 
 		self::$instance =& $this;
 
-		$this->app =& get_instance();
+		$this->ci =& get_instance();
 
 		$this->splint = $splint;
 
@@ -239,7 +239,7 @@ class SplintAppController {
 	 */
 	protected function bind() {
 		foreach (func_get_args() as $class)	{
-			$this->{$class} =& $this->app->{$class};
+			$this->{$class} =& $this->ci->{$class};
 		}
 	}
 	/**
