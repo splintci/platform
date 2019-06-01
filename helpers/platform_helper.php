@@ -24,4 +24,14 @@ if (!function_exists('app_url')) {
     return site_url($ci->uri->rsegment(1)."/".$ci->uri->rsegment(2)."/".$resource);
   }
 }
+
+if (!function_exists('get_app_instance')) {
+  /**
+   * [get_app_instance description]
+   * @return [type] [description]
+   */
+  function &get_app_instance() {
+    return SplintAppController::get_instance();
+  }
+}
 ?>
