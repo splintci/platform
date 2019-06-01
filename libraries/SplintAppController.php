@@ -104,6 +104,10 @@ class SplintAppController {
 		if (file_exists(APPPATH."splints/$splint/config/".ENVIRONMENT.'/autoload.php'))	{
 			include(APPPATH."splints/$splint/config/".ENVIRONMENT.'/autoload.php');
 		}
+
+		// Load Platform Helper.
+		$this->load->splint("splint/platform", "%platform");
+		
     if (isset($autoload)) {
 			// Load any custom config file
 			if (isset($autoload['config']) && count($autoload['config']) > 0)	{
@@ -170,8 +174,6 @@ class SplintAppController {
 		} else {
 			$this->load->helper("url");
 		}
-
-		$this->load->splint("splint/platform", "%platform");
 
 		if (method_exists($this, "Initialize")) $this->Initialize();
 
