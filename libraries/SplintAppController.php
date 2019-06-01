@@ -254,6 +254,13 @@ class SplintAppController {
 		}
 	}
 	/**
+	 * [get_parent_uri description]
+	 * @return [type] [description]
+	 */
+	protected function get_parent_uri() {
+		return $this->uri->segment(1) . "/" . $this->uri->segment(2) . "/";
+	}
+	/**
 	 * [get_instance description]
 	 * @return [type] [description]
 	 */
