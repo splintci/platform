@@ -176,6 +176,15 @@ class SplintAppController {
 		log_message('info', 'SplintAppController Class Initialized');
 	}
 	/**
+	 * [get_param description]
+	 * @param  [type]  $param   [description]
+	 * @param  boolean $default [description]
+	 * @return [type]           [description]
+	 */
+	function get_param($param, $default=false) {
+		return isset($this->params[$param]) ? $this->params[$param] : $default;
+	}
+	/**
 	 * [view description]
 	 * @param  [type]  $view   [description]
 	 * @param  [type]  $data   [description]
