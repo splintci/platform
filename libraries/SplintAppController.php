@@ -185,6 +185,14 @@ class SplintAppController {
 		return isset($this->params[$param]) ? $this->params[$param] : $default;
 	}
 	/**
+	 * [set_param description]
+	 * @param [type] $param [description]
+	 * @param [type] $value [description]
+	 */
+	function set_param($param, $value) {
+		$this->params[$param] = $value;
+	}
+	/**
 	 * [view description]
 	 * @param  [type]  $view   [description]
 	 * @param  [type]  $data   [description]
