@@ -61,7 +61,7 @@ class SplintAppController {
 
 	protected $params;
 
-	protected $splint;
+	public $splint;
 
 	/**
 	 * Reference to the CI singleton
@@ -76,6 +76,8 @@ class SplintAppController {
 	 * @return	void
 	 */
 	public function __construct($splint, $params=null)	{
+
+		self::$instance =& $this;
 
 		$this->app =& get_instance();
 
@@ -239,5 +241,23 @@ class SplintAppController {
 		foreach (func_get_args() as $class)	{
 			$this->{$class} =& $this->app->{$class};
 		}
+	}
+	/**
+	 * [fill_params_in_array description]
+	 * @param  [type] $params [description]
+	 * @param  [type] $array  [description]
+	 * @return [type]         [description]
+	 */
+	protected function fill_params_in_array($params, &$array) {
+		foreach ($params as $param) {
+			if (isset($this->params[$param])) $array[$param] = $this->params[$param];
+		}
+	}
+	/**
+	 * [get_instance description]
+	 * @return [type] [description]
+	 */
+	public static function &get_instance() {
+		return self::$instance;
 	}
 }
