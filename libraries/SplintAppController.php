@@ -188,6 +188,14 @@ class SplintAppController {
 		$this->load->view("../splints/$this->splint/views/$view", $data, $return);
 	}
 	/**
+	 * [view_path description]
+	 * @param  [type] $view [description]
+	 * @return [type]       [description]
+	 */
+	protected function view_path($view) {
+		return "../splints/$this->splint/views/$view";
+	}
+	/**
 	 * [library description]
 	 * @param  [type] $library [description]
 	 * @param  [type] $params  [description]
