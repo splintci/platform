@@ -89,8 +89,8 @@ class SplintAppController {
 		// Assign all the class objects that were instantiated by the
 		// bootstrap file (CodeIgniter.php) to local class variables
 		// so that CI can run as one big super object.
-		foreach (is_loaded() as $var => $class)	{
-      $this->$var =& load_class($class);
+		foreach (array_keys(is_loaded()) as $var)	{
+			$this->bind($var);
 		}
 
 		$this->load =& load_class('Loader', 'core');
