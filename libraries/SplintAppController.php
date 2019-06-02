@@ -203,7 +203,7 @@ class SplintAppController {
 	 * @param  boolean $return [description]
 	 * @return [type]          [description]
 	 */
-	protected function view($view, $data=null, $return=false) {
+	public function view($view, $data=null, $return=false) {
 		if ($data == null) $data = array();
 		$data["splint"] = $this->splint;
 		$this->load->view("../splints/$this->splint/views/$view", $data, $return);
@@ -213,7 +213,7 @@ class SplintAppController {
 	 * @param  [type] $view [description]
 	 * @return [type]       [description]
 	 */
-	protected function view_path($view) {
+	public function view_path($view) {
 		return "../splints/$this->splint/views/$view";
 	}
 	/**
@@ -223,7 +223,7 @@ class SplintAppController {
 	 * @param  [type] $alias   [description]
 	 * @return [type]          [description]
 	 */
-	protected function library($library, $params=null, $alias=null) {
+	public function library($library, $params=null, $alias=null) {
 		$this->load->view("../splints/$this->splint/libraries/$library", $params, $alias);
 	}
 	/**
@@ -232,7 +232,7 @@ class SplintAppController {
 	 * @param  [type] $alias [description]
 	 * @return [type]        [description]
 	 */
-	protected function model($model, $alias=null) {
+	public function model($model, $alias=null) {
 		$this->load->view("../splints/$this->splint/models/$model", $alias);
 	}
 	/**
