@@ -185,7 +185,7 @@ class SplintAppController {
 	 * @param  boolean $default [description]
 	 * @return [type]           [description]
 	 */
-	function fetch_param($param, $default=false) {
+	public function fetch_param($param, $default=false) {
 		return isset($this->params[$param]) ? $this->params[$param] : $default;
 	}
 	/**
@@ -193,7 +193,7 @@ class SplintAppController {
 	 * @param [type] $param [description]
 	 * @param [type] $value [description]
 	 */
-	function set_param($param, $value) {
+	public function set_param($param, $value) {
 		$this->params[$param] = $value;
 	}
 	/**
