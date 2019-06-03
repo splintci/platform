@@ -21,7 +21,7 @@ if (!function_exists('app_url')) {
    */
   function app_url($resource="") {
     $ci =& get_instance();
-    return site_url($ci->uri->rsegment(1)."/".$ci->uri->rsegment(2)."/".$resource);
+    return site_url($ci->uri->rsegment(1)."/".$ci->uri->rsegment(2).($ci->uri->segment(2) != null ? "/" : "").$resource);
   }
 }
 

@@ -260,7 +260,7 @@ class SplintAppController {
 	 * @return [type] [description]
 	 */
 	protected function parent_uri($uri=null) {
-		return $this->uri->segment(1) . "/" . $this->uri->segment(2) . "/" . ($uri == null ? "" : $uri);
+		return $this->uri->segment(1) . "/" . $this->uri->segment(2) . ($this->uri->segment(2) != null ? "/" : "") . ($uri == null ? "" : $uri);
 	}
 	/**
 	 * [get_instance description]
