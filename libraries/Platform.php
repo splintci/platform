@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Platform {
@@ -7,15 +8,16 @@ class Platform {
 
   function __construct() {
     $this->packages_root = APPPATH . "splints/";
+    require_once(FCPATH.'system/core/Model.php');
+    require_once('SplintModel.php');
   }
   /**
    * [getInstalledPackages List out all currently installed packages within the
-   *                       distribution.]
-   *                       
+   *                       distribution.
    * @return array         An array of installed packages.
    */
-  function getInstalledPackages() {
-    $installed = array();
+  function getInstalledPackages():array {
+    $installed = [];
     $vendors = $this->filterDirectories(
       $this->packages_root,
       array_diff(scandir($this->packages_root), array('.', '..')
@@ -34,31 +36,52 @@ class Platform {
   /**
    * [getPackageVersion       Gets the version of the given package from its
    *                          descriptor.]
-   *
    * @param  string $package  The name of the package to retrieve its version.
-   *
    * @return string           The version of the given package.
    */
-  function getPackageVersion($package) {
+  function getPackageVersion(string $package):?string {
     if (is_file($this->packages_root . "$package/splint.json"))
     $descriptor = json_decode(file_get_contents($this->packages_root . "$package/splint.json"));
     if (isset($descriptor->version)) return str_replace("v", "", $descriptor->version);
-    return false;
+    return null;
+  }
+  /**
+   * [getPackageAliases description]
+   * @param  string $package [description]
+   * @return [type]          [description]
+   */
+  function getPackageAliases(string $package=null):?string {
+    if ($package ==  null) return null;
+    if (is_file($this->packages_root . "$package/splint.json"))
+    $descriptor = json_decode(file_get_contents($this->packages_root . "$package/splint.json"), true);
+    if (isset($descriptor['autoload']['libraries'])) {
+      $aliases = [];
+      foreach ($descriptor['autoload']['libraries'] as $autoload) {
+        if (count($autoload) == 3) {
+          $aliases[] =  $autoload[2];
+        } else if (count($autoload) == 2 && substr($autoload[1], 0, 1) != '@') {
+          $aliases[] = $autoload[1];
+        }
+      }
+      if (count($aliases) == 1) return $aliases[0];
+      if (count($aliases) > 0) return $aliases;
+      if (count($descriptor['autoload']['libraries']) > 0) {
+        return $descriptor['autoload']['libraries'][0][0];
+      }
+    }
+    return null;
   }
   /**
    * [filterDirectories       Filter out teh given arrays and return only valid
    *                          directories based on the combination of $rootDir
    *                          and elements of $dir.]
-   *
    * @param  string $rootDir  Root directory to check the validity of the
    *                          elements of $dir with.
-   *
    * @param  array  $dirs     Array of possibel directory names.
-   *
    * @return array            Array of valid directory names.
    */
-  function filterDirectories($rootDir, $dirs) {
-    $directories = array();
+  function filterDirectories(string $rootDir, array $dirs):array {
+    $directories = [];
     foreach ($dirs as $dir) {
       if (is_dir($rootDir . $dir)) $directories[] = $dir;
     }
