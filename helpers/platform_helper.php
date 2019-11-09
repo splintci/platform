@@ -34,4 +34,17 @@ if (!function_exists('get_app_instance')) {
     return SplintAppController::get_instance();
   }
 }
+
+if (!function_exists('collect')) {
+  /**
+   * [collect description]
+   * @date   2019-11-02
+   * @param  array      $array [description]
+   * @return [type]            [description]
+   */
+  function collect(array $array)
+  {
+    return null;
+  }
+}
 ?>
