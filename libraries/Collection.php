@@ -62,4 +62,14 @@ class Collection
 
     return $chunks;
   }
+  /**
+   * TODO
+   * [collapse description]
+   * @date   2019-11-10
+   * @return array      [description]
+   */
+  public function collapse():array
+  {
+
+  }
 }
