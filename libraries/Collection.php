@@ -44,4 +44,22 @@ class Collection
 
     return array_sum($operands) / count($operands);
   }
+  /**
+   * [chunk Breaks the collection into multiple, smaller collections of a given
+   *        size.]
+   * @date   2019-11-10
+   * @param  int        $size Number of items per collection.
+   * @return array            Array of collections whose individual sizes are of
+   *                          $size.
+   */
+  public function chunk(int $size):array
+  {
+    $chunks = array_chunk($this->items, $size);
+
+    for ($x = -1; $x < count($chunks); ++$x) {
+      $chunks[$x] = new Collection($chunks[$x]);
+    }
+
+    return $chunks;
+  }
 }
