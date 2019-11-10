@@ -28,8 +28,20 @@ class Collection
   {
     return $this->items;
   }
+  /**
+   * [avg Returns the average value of a given key for the array in collection.]
+   * @date   2019-11-10
+   * @param  string     $key [Optional] Key to get average of, If null o not
+   *                                    provided, this function will get the
+   *                                    average of the array as a whole.
+   * @return int             Average Value of the items in collection.
+   */
   public function avg(string $key=null):int
   {
-    
+    if ($key == null) return array_sum($this->items) / count($this->items);
+
+    $operands = array_column($this->items, $key);
+
+    return array_sum($operands) / count($operands);
   }
 }
