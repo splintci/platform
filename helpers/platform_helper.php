@@ -35,6 +35,19 @@ if (!function_exists('get_app_instance')) {
   }
 }
 
+if (!function_exists('dd')) {
+  /**
+   * [dd description]
+   * @date   2019-11-23
+   * @param  [type]     $var [description]
+   * @return [type]          [description]
+   */
+  function dd($var) {
+    var_dump($var);
+    exit(EXIT_SUCCESS);
+  }
+}
+
 if (!function_exists('collect')) {
   /**
    * [collect description]
