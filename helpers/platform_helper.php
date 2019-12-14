@@ -60,4 +60,43 @@ if (!function_exists('collect')) {
     return null;
   }
 }
-?>
+
+if (!function_exists('job')) {
+  /**
+   * [job description]
+   * @date   2019-12-03
+   * @param  string     $class   [description]
+   * @param  array      $rawArgs [description]
+   * @return [type]              [description]
+   */
+  function job(string $class, ...$rawArgs) {
+    // TODO: Handle Assoc Args.
+    return new AsyncJobDispatcher($class, ...$rawArgs);
+  }
+}
+
+if (!function_exists('array_permutate')) {
+  function array_permutate(array $items, array $permutations=[], array &$result=[])
+  {
+    if (empty($items)) {
+      $result[] = array_unique($permutations);
+    } else {
+      for ($x = count($items) - 1; $x >= 0; --$x) {
+        $newItems = $items;
+        $permutation = $permutations;
+        list($tail) = array_splice($newItems, $x, 1);
+        array_unshift($permutations, $tail);
+        array_permutate($newItems, $permutations, $result);
+      }
+   }
+   return $result;
+  }
+}
+
+if (!function_exists('cenv')) {
+  function cenv(string $key, $default, ?string $config=null)
+  {
+    if ($config) get_instance()->config->load($config);
+    return get_instance()->config->item($key) ?? $default;
+  }
+}
