@@ -6,10 +6,31 @@ class Platform {
 
   private $packages_root;
 
-  function __construct() {
+  private const PACKAGE = 'splint/platform';
+
+  function __construct()
+  {
     $this->packages_root = APPPATH . "splints/";
-    require_once(FCPATH.'system/core/Model.php');
-    require_once('SplintModel.php');
+
+    spl_autoload_register(function($name) {
+      if ($name == "CI_Model") {
+        require(FCPATH.'system/core/Model.php');
+        return;
+      }
+      $oldPath = set_include_path(APPPATH . 'splints/' . self::PACKAGE . '/libraries');
+      if (file_exists(APPPATH . 'splints/' . self::PACKAGE . "/libraries/$name.php")) {
+        require("$name.php");
+      }
+      set_include_path($oldPath);
+    });
+
+    spl_autoload_register(function ($name) {
+      $oldPath = set_include_path(APPPATH . 'platform/jobs');
+      require("$name.php");
+      set_include_path($oldPath);
+    });
+
+    get_instance()->load->splint(self::PACKAGE, '%platform');
   }
   /**
    * [getInstalledPackages List out all currently installed packages within the
