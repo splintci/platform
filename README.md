@@ -6,5 +6,6 @@ This is an integral package for the utilization of Splint. It esentially hacks C
 * HookWares (Middleware in Laravel)
 * Modular Code Igniter Application Support
 * __Unit Testing__
+* Powerful Helpers.
 
 __Currently Under Development and Testing__
