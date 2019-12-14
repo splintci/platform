@@ -1,5 +1,10 @@
 # Platform #
 
-This is a package/modular part of the functionalities of splint. It provides development support.
+This is an integral package for the utilization of Splint. It esentially hacks Code Igniter without the need to mess the core files and provides you with powerful functionalities such as
+* __Asynchronous PHP Processes/Jobs__
+* Collections (Arrays on Steroids)
+* HookWares (Middleware in Laravel)
+* Modular Code Igniter Application Support
+* __Unit Testing__
 
-__This package is compulsory when running Unit Tests.__
+__Currently Under Development and Testing__
