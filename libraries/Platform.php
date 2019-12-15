@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Platform {
@@ -26,7 +27,9 @@ class Platform {
 
     spl_autoload_register(function ($name) {
       $oldPath = set_include_path(APPPATH . 'platform/jobs');
-      require("$name.php");
+      if (file_exists(APPPATH.'platform/jobs/'.$name.'.php')) {
+        require("$name.php");
+      }
       set_include_path($oldPath);
     });
 
