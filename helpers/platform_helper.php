@@ -100,3 +100,30 @@ if (!function_exists('cenv')) {
     return get_instance()->config->item($key) ?? $default;
   }
 }
+
+if (!function_exists('set_config_item')) {
+  /**
+   * [set_config_item description]
+   * @date  2019-12-14
+   * @param string     $key   [description]
+   * @param [type]     $value [description]
+   */
+  function set_config_item(string $key, $value):void
+  {
+    get_instance()->config->set_item($key, $value);
+  }
+}
+
+if (!function_exists('get_config_item')) {
+  /**
+   * [get_config_item description]
+   * @date   2019-12-14
+   * @param  string     $key     [description]
+   * @param  [type]     $default [description]
+   * @return [type]              [description]
+   */
+  function get_config_item(string $key, $default)
+  {
+    return get_instance()->config->item($key) ?? $default;
+  }
+}
