@@ -23,5 +23,5 @@ abstract class AsyncJob
    * [handle description]
    * @date 2019-12-04
    */
-  abstract public function execute():void;
+  abstract public function execute():int;
 }
