@@ -127,3 +127,38 @@ if (!function_exists('get_config_item')) {
     return get_instance()->config->item($key) ?? $default;
   }
 }
+
+if (!function_exists('event')) {
+  function event($event, ...$args):void
+  {
+    if (is_a($event, 'AppEvent', true)) {
+      $listeners = is_string($event) ? get_instance()->config->events[$event] : get_instance()->config->events[get_class($event)];
+
+      $event = is_string($event) ? new $event(...$args) : $event;
+
+      if (is_array($listeners)) {
+        $tailData = null;
+        $previousListener = null;
+        foreach ($listeners as $listener) {
+          if (!is_a($listener, 'AppEventListener', true)) {
+            throw new Exception("Given Listener does not extend the AppEventListener class.");
+          }
+          $listenerObj = new $listener($tailData);
+          $listenerObj->handle($event);
+          $tailData = $listenerObj->getData($previousListener);
+          $previousListener = $listener;
+        }
+        return;
+      }
+
+      if (!is_a($listeners, 'AppEventListener', true)) {
+        throw new Exception("Given Listener does not extend the AppEventListener class.");
+      }
+      (new $listeners())->handle($event);
+
+      return;
+    }
+
+    throw new Exception('The given event does not extend the AppEvent class.');
+  }
+}

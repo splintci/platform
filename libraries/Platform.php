@@ -25,12 +25,23 @@ class Platform {
       set_include_path($oldPath);
     });
 
+    // Jobs.
     spl_autoload_register(function ($name) {
-      $oldPath = set_include_path(APPPATH . 'platform/jobs');
-      if (file_exists(APPPATH.'platform/jobs/'.$name.'.php')) {
-        require("$name.php");
+      if (file_exists(APPPATH."jobs/$name.php")) {
+        require(APPPATH."jobs/$name.php");
       }
-      set_include_path($oldPath);
+    });
+    // Events
+    spl_autoload_register(function ($name) {
+      if (file_exists(APPPATH."events/$name.php")) {
+        require(APPPATH."events/$name.php");
+      }
+    });
+    // Listeners
+    spl_autoload_register(function ($name) {
+      if (file_exists(APPPATH."listeners/$name.php")) {
+        require(APPPATH."listeners/$name.php");
+      }
     });
 
     get_instance()->load->splint(self::PACKAGE, '%platform');
