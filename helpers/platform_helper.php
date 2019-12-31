@@ -162,3 +162,14 @@ if (!function_exists('event')) {
     throw new Exception('The given event does not extend the AppEvent class.');
   }
 }
+
+if (!function_exists('splint_autoload_register')) {
+  function splint_autoload_register(string $package)
+  {
+    spl_autoload_register(function($name) use ($package) {
+      if (file_exists(APPPATH."splints/$package/libraries/$name.php")) {
+        require(APPPATH."splints/$package/libraries/$name.php");
+      }
+    });
+  }
+}
