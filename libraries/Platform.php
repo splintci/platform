@@ -45,6 +45,7 @@ class Platform {
     });
 
     get_instance()->load->splint(self::PACKAGE, '%platform');
+    get_instance()->load->splint(self::PACKAGE, '%form_validation');
   }
   /**
    * [getInstalledPackages List out all currently installed packages within the
