@@ -32,6 +32,10 @@ class AsyncJobDisPatcher
    */
   public function dispatch():void
   {
+    for ($x = 0; $x < count($this->args); $x++) {
+      $this->args[$x] = rawurlencode($this->args[$x]);
+    }
+
     $class = new $this->class(...$this->args);
     $env = '';
     if (is_array($class->env)) {
