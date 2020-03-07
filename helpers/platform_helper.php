@@ -71,7 +71,7 @@ if (!function_exists('job')) {
    */
   function job(string $class, ...$rawArgs) {
     // TODO: Handle Assoc Args.
-    return new AsyncJobDispatcher($class, ...$rawArgs);
+    return new AsyncJobDisPatcher($class, ...$rawArgs);
   }
 }
 

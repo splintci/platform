@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class AsyncJobDispatcher
+class AsyncJobDisPatcher
 {
   /**
    * [protected description]
