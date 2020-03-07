@@ -32,7 +32,14 @@ class AsyncJobDisPatcher
    */
   public function dispatch():void
   {
-    exec('bash -c "nohup setsid php index.php CLIController '.$this->class.' '.implode(' ', $this->args).' > /dev/null 2>&1 &"');
+    $class = new $this->class(...$this->args);
+    $env = '';
+    if (is_array($class->env)) {
+      foreach ($class->env as $key => $value) {
+        $env .= "$key=$value ";
+      }
+    }
+    exec($env . 'bash -c "nohup setsid '. $class->phpBinary .' index.php CLIController '.$this->class.' '.implode(' ', $this->args).' > /dev/null 2>&1 &"');
   }
 
   /**
