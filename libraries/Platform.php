@@ -69,24 +69,28 @@ class Platform {
     }
     return $installed;
   }
+
   /**
    * [getPackageVersion       Gets the version of the given package from its
    *                          descriptor.]
    * @param  string $package  The name of the package to retrieve its version.
    * @return string           The version of the given package.
    */
-  function getPackageVersion(string $package):?string {
+  function getPackageVersion(string $package):?string
+  {
     if (is_file($this->packages_root . "$package/splint.json"))
     $descriptor = json_decode(file_get_contents($this->packages_root . "$package/splint.json"));
     if (isset($descriptor->version)) return str_replace("v", "", $descriptor->version);
     return null;
   }
+
   /**
    * [getPackageAliases description]
    * @param  string $package [description]
    * @return [type]          [description]
    */
-  function getPackageAliases(string $package=null):?string {
+  function getPackageAliases(string $package=null):?string
+  {
     if ($package ==  null) return null;
     if (is_file($this->packages_root . "$package/splint.json"))
     $descriptor = json_decode(file_get_contents($this->packages_root . "$package/splint.json"), true);
@@ -107,6 +111,7 @@ class Platform {
     }
     return null;
   }
+
   /**
    * [filterDirectories       Filter out teh given arrays and return only valid
    *                          directories based on the combination of $rootDir
@@ -116,12 +121,40 @@ class Platform {
    * @param  array  $dirs     Array of possibel directory names.
    * @return array            Array of valid directory names.
    */
-  function filterDirectories(string $rootDir, array $dirs):array {
+  function filterDirectories(string $rootDir, array $dirs):array
+  {
     $directories = [];
     foreach ($dirs as $dir) {
       if (is_dir($rootDir . $dir)) $directories[] = $dir;
     }
     return $directories;
   }
+
+  /**
+   * [validateInput description]
+   * @date   2020-04-11
+   * @param  string     $group [description]
+   * @param  boolean    $exit  [description]
+   * @param  [type]     $data  [description]
+   * @return bool              [description]
+   */
+  public function validateInput(string $group, bool $exit=false, array $data=[]):bool
+  {
+    $ci =& get_instance();
+    $ci->load->library('form_validation');
+    $ci->form_validation->set_data(array_merge($ci->input->input_stream(null, true), $data));    
+
+    if ($ci->form_validation->run($group)) return true;
+
+    if ($exit) {
+      http_response_code(400);
+      header('Content-Type: application/json');
+      echo json_encode([
+        'errors' => $ci->form_validation->error_array()
+      ], JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES);
+      exit(EXIT_USER_INPUT);
+    }
+
+    return false;
+  }
 }
-?>
