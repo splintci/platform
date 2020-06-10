@@ -142,7 +142,7 @@ class Platform {
   {
     $ci =& get_instance();
     $ci->load->library('form_validation');
-    $ci->form_validation->set_data(array_merge($ci->input->input_stream(null, true), $data));    
+    $ci->form_validation->set_data(array_merge($ci->input->input_stream(null, true), $data));
 
     if ($ci->form_validation->run($group)) return true;
 
@@ -150,7 +150,9 @@ class Platform {
       http_response_code(400);
       header('Content-Type: application/json');
       echo json_encode([
-        'errors' => $ci->form_validation->error_array()
+        'errors' => count(
+          $ci->form_validation->error_array()) > 0 ?
+          $ci->form_validation->error_array() : 'No Fields Provided'
       ], JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES);
       exit(EXIT_USER_INPUT);
     }
